@@ -1,0 +1,11 @@
+.classpath
+.project
+target
+*log*.txt
+/bin
+.settings
+.metadata/
+.idea
+*.iml
+.DS_Store
+.vagrant/
