@@ -1,7 +1,4 @@
-/**
- * 
- */
-package ar.com.bunge;
+package org.apache.activemq.jndi;
 
 import java.util.Hashtable;
 import java.util.Map;
@@ -15,7 +12,7 @@ import org.apache.activemq.jndi.ReadOnlyContext;
  * @author ftroya
  *
  */
-public class BungeActiveMQInitialContextFactory extends
+public class FallbackActiveMQInitialContextFactory extends
 		ActiveMQInitialContextFactory {
 
 	@Override

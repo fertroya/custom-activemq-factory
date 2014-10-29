@@ -1,5 +1,4 @@
-package ar.com.bunge;
-
+package org.apache.activemq.jndi;
 
 import java.util.Hashtable;
 
@@ -7,11 +6,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import org.apache.activemq.jndi.ReadOnlyContext;
-
+/**
+ * @author ftroya
+ *
+ */
 public class FallbackContext extends ReadOnlyContext {
 
-	private Context context;
+	static String INITIAL_CONTEXT_FACTORY_FALLBACK = "java.naming.factory.initial.fallback";
+	
 	public FallbackContext(ReadOnlyContext createContext)
 			throws NamingException {
 		super(createContext, createContext.getEnvironment());
@@ -25,9 +27,9 @@ public class FallbackContext extends ReadOnlyContext {
 		}
 		catch(NamingException e){
 			Hashtable environment2 = (Hashtable<?, ?>) this.getEnvironment().clone();
-			environment2.put(Context.INITIAL_CONTEXT_FACTORY, "org.jboss.naming.remote.client.InitialContextFactory");
-			lookup = new InitialContext(environment2).lookup(name);
-			
+			String initialContextFactoryFallback=(String)this.getEnvironment().get(INITIAL_CONTEXT_FACTORY_FALLBACK);
+			environment2.put(Context.INITIAL_CONTEXT_FACTORY, initialContextFactoryFallback);
+            lookup = new InitialContext(environment2).lookup(name);			
 		}
 		return lookup;
 	}
